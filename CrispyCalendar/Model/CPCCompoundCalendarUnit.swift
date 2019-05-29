@@ -23,13 +23,13 @@
 
 import Foundation
 
-internal struct CPCCompoundCalendarUnitIndex: Comparable, Hashable {
+public struct CPCCompoundCalendarUnitIndex: Comparable, Hashable {
 	internal typealias Index = Int;
 	internal typealias Element = Int;
 	
 	fileprivate let ordinalValue: Int;
 	
-	internal static func < (lhs: CPCCompoundCalendarUnitIndex, rhs: CPCCompoundCalendarUnitIndex) -> Bool {
+	public static func < (lhs: CPCCompoundCalendarUnitIndex, rhs: CPCCompoundCalendarUnitIndex) -> Bool {
 		return lhs.ordinalValue < rhs.ordinalValue;
 	}
 	
