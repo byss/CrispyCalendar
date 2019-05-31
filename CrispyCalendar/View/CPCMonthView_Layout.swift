@@ -24,16 +24,16 @@
 import UIKit
 
 internal extension UIView {
-	internal var separatorWidth: CGFloat {
+	var separatorWidth: CGFloat {
 		return 1.0 / (self.window?.screen ?? .main).nativeScale;
 	}
 }
 
 internal extension CPCMonthView {
-	internal typealias CellIndices = GridIndices <Int>;
-	internal typealias CellIndex = CellIndices.Element;
+	typealias CellIndices = GridIndices <Int>;
+	typealias CellIndex = CellIndices.Element;
 
-	internal struct Layout {
+	struct Layout {
 		internal typealias SeparatorOrigins = (horizontal: ComputedArray <Int, CGFloat>, vertical: ComputedArray <Int, CGFloat>);
 		
 		internal let separatorWidth: CGFloat;
@@ -206,11 +206,11 @@ internal extension CPCMonthView {
 }
 
 fileprivate extension CGFloat {
-	fileprivate func applyingForX (_ transform: CGAffineTransform) -> CGFloat {
+	func applyingForX (_ transform: CGAffineTransform) -> CGFloat {
 		return CGPoint (x: self, y: 0.0).applying (transform).x;
 	}
 
-	fileprivate func applyingForY (_ transform: CGAffineTransform) -> CGFloat {
+	func applyingForY (_ transform: CGAffineTransform) -> CGFloat {
 		return CGPoint (x: 0.0, y: self).applying (transform).y;
 	}
 }

@@ -24,25 +24,25 @@
 import Swift
 
 internal extension RangeReplaceableCollection {
-	internal static func + (lhs: Self, rhs: Element) -> Self {
+	static func + (lhs: Self, rhs: Element) -> Self {
 		return lhs + CollectionOfOne (rhs);
 	}
 	
-	internal static func + (lhs: Element, rhs: Self) -> Self {
+	static func + (lhs: Element, rhs: Self) -> Self {
 		return rhs + CollectionOfOne (lhs);
 	}
 	
-	internal static func += (lhs: inout Self, rhs: Element) {
+	static func += (lhs: inout Self, rhs: Element) {
 		lhs.append (rhs);
 	}
 }
 
 internal extension Set {
-	internal func union (_ element: Element) -> Set {
+	func union (_ element: Element) -> Set {
 		return self.union (CollectionOfOne (element));
 	}
 	
-	internal func subtracting (_ element: Element) -> Set {
+	func subtracting (_ element: Element) -> Set {
 		return self.subtracting (CollectionOfOne (element));
 	}
 }

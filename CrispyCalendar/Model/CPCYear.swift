@@ -70,55 +70,55 @@ extension CPCYear: CPCCompoundCalendarUnit {
 
 public extension CPCYear {
 	/// Value that represents a current year.
-	public static var current: CPCYear {
+	static var current: CPCYear {
 		return self.current  (using: CalendarWrapper.currentUsed);
 	}
 	
 	/// Value that represents next year.
-	public static var next: CPCYear {
+	static var next: CPCYear {
 		return self.next (using: CalendarWrapper.currentUsed);
 	}
 	
 	/// Value that represents previous year.
-	public static var prev: CPCYear {
+	static var prev: CPCYear {
 		return self.prev (using: CalendarWrapper.currentUsed);
 	}
 	
 	/// Era of the represented year.
-	public var era: Int {
+	var era: Int {
 		return self.backingValue.era;
 	}
 
 	/// Number of year represented by this value.
-	public var year: Int {
+	var year: Int {
 		return self.backingValue.year;
 	}
 	
 	/// Value that represents a current year in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	public static func current (using calendar: Calendar) -> CPCYear {
+	static func current (using calendar: Calendar) -> CPCYear {
 		return self.current (using: calendar.wrapped ());
 	}
 	
 	/// Value that represents next year in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	public static func next (using calendar: Calendar) -> CPCYear {
+	static func next (using calendar: Calendar) -> CPCYear {
 		return self.next (using: calendar.wrapped ());
 	}
 
 	/// Value that represents previous year in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	public static func prev (using calendar: Calendar) -> CPCYear {
+	static func prev (using calendar: Calendar) -> CPCYear {
 		return self.prev (using: calendar.wrapped ());
 	}
 
 	/// Create a new value, corresponding to a year in the future or past.
 	///
 	/// - Parameter yearsSinceNow: Distance from current year in years.
-	public init (yearsSinceNow: Int) {
+	init (yearsSinceNow: Int) {
 		self = CPCYear.current.advanced (by: yearsSinceNow);
 	}
 }
@@ -127,21 +127,21 @@ internal extension CPCYear {
 	/// Value that represents a current year in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	internal static func current (using calendar: CalendarWrapper) -> CPCYear {
+	static func current (using calendar: CalendarWrapper) -> CPCYear {
 		return self.cachedCommonUnit (for: .current, calendar: calendar);
 	}
 	
 	/// Value that represents next year in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	internal static func next (using calendar: CalendarWrapper) -> CPCYear {
+	static func next (using calendar: CalendarWrapper) -> CPCYear {
 		return self.cachedCommonUnit (for: .following, calendar: calendar);
 	}
 
 	/// Value that represents previous year in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	internal static func prev (using calendar: CalendarWrapper) -> CPCYear {
+	static func prev (using calendar: CalendarWrapper) -> CPCYear {
 		return self.cachedCommonUnit (for: .previous, calendar: calendar);
 	}
 }

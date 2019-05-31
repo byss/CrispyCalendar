@@ -36,12 +36,12 @@ public protocol CPCCalendarUnitSymbol {
 
 public extension CPCCalendarUnitSymbol {
 	/// - SeeAlso: `CPCCalendarUnitSymbolStyle`
-	public typealias Style = CPCCalendarUnitSymbolStyle;
+	typealias Style = CPCCalendarUnitSymbolStyle;
 	
 	/// Get a localized name of a calendar unit.
 	///
 	/// - Returns: Localized symbol with default style.
-	public func symbol () -> String {
+	func symbol () -> String {
 		return self.symbol (style: .default, standalone: true);
 	}
 	
@@ -67,5 +67,5 @@ public extension CPCCalendarUnitSymbol {
 /// Represents style of a localized string representing a calendar unit.
 public extension CPCCalendarUnitSymbol.Style {
 	/// Default symbol style that is used when no specific style is requested.
-	public static let `default` = normal;
+	static let `default` = normal;
 }

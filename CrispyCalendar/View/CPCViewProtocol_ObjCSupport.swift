@@ -66,7 +66,7 @@ extension CPCCalendarView {
 }
 
 fileprivate extension CPCViewTitleStyle {
-	fileprivate static func customTemplate (_ template: String?) -> CPCViewTitleStyle {
+    static func customTemplate (_ template: String?) -> CPCViewTitleStyle {
 		return template.map { self.customTemplate ($0) } ?? .default;
 	}
 }

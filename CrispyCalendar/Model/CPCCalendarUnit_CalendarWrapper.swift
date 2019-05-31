@@ -146,7 +146,7 @@ public extension Calendar {
 }
 
 fileprivate extension Unmanaged {
-	fileprivate static func makeRunLoopObserverContext (observer: Instance) -> CFRunLoopObserverContext {
+	static func makeRunLoopObserverContext (observer: Instance) -> CFRunLoopObserverContext {
 		return CFRunLoopObserverContext (
 			version: 0,
 			info: self.passUnretained (observer).toOpaque (),

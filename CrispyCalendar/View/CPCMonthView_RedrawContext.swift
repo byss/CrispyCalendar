@@ -24,7 +24,7 @@
 import UIKit
 
 fileprivate extension UIColor {
-	fileprivate var isInvisible: Bool {
+	var isInvisible: Bool {
 		var alpha = 0.0 as CGFloat;
 		self.getWhite (nil, alpha: &alpha);
 		return alpha < 1e-3;
@@ -32,12 +32,12 @@ fileprivate extension UIColor {
 }
 
 fileprivate extension UIRectCorner {
-	fileprivate static let anyLeft: UIRectCorner = [.topLeft, .bottomLeft];
-	fileprivate static let anyTop: UIRectCorner = [.topLeft, .topRight];
+	static let anyLeft: UIRectCorner = [.topLeft, .bottomLeft];
+	static let anyTop: UIRectCorner = [.topLeft, .topRight];
 }
 
 internal extension DateFormatter {
-	internal static func eraseCachedFormatters (calendar: CPCCalendarWrapper) {
+	static func eraseCachedFormatters (calendar: CPCCalendarWrapper) {
 		self.availableFormatters.withMutableStoredValue { $0 = $0.filter { $0.key.calendarWrapper !== calendar } };
 	}
 }
@@ -82,7 +82,7 @@ fileprivate extension DateFormatter {
 		};
 	}
 	
-	fileprivate static func dequeueFormatter (for month: CPCMonth, format: String) -> DateFormatter {
+	static func dequeueFormatter (for month: CPCMonth, format: String) -> DateFormatter {
 		if let reusedFormatter = self.availableFormatter (for: month, format: format) {
 			return reusedFormatter;
 		}
@@ -95,11 +95,11 @@ fileprivate extension DateFormatter {
 		return dateFormatter;
 	}
 
-	fileprivate static func dequeueFormatter (for month: CPCMonth, dateFormatTemplate template: String) -> DateFormatter {
+	static func dequeueFormatter (for month: CPCMonth, dateFormatTemplate template: String) -> DateFormatter {
 		return self.dequeueFormatter (for: month, format: DateFormatter.dateFormat (fromTemplate: template, options: 0, locale: month.calendar.locale) ?? template);
 	}
 	
-	fileprivate static func makeReusable (_ formatters: [DateFormatter], wrapper: CPCCalendarWrapper) {
+	static func makeReusable (_ formatters: [DateFormatter], wrapper: CPCCalendarWrapper) {
 		DateFormatter.availableFormatters.withMutableStoredValue {
 			for formatter in formatters {
 				formatter.makeReusableUnlocked (&$0, wrapper: wrapper);
@@ -107,7 +107,7 @@ fileprivate extension DateFormatter {
 		};
 	}
 
-	fileprivate func makeReusable (wrapper: CPCCalendarWrapper) {
+	func makeReusable (wrapper: CPCCalendarWrapper) {
 		DateFormatter.availableFormatters.withMutableStoredValue {
 			self.makeReusableUnlocked (&$0, wrapper: wrapper);
 		};
@@ -130,7 +130,7 @@ internal protocol CPCMonthViewRedrawContext {
 }
 
 internal extension CPCMonthView {
-	internal typealias RedrawContext = CPCMonthViewRedrawContext;
+	typealias RedrawContext = CPCMonthViewRedrawContext;
 	
 	fileprivate struct TitleRedrawContext {
 		fileprivate let month: CPCMonth;
@@ -204,18 +204,18 @@ internal extension CPCMonthView {
 		}
 	}
 	
-	internal func clearingContext (_ rect: CGRect) -> RedrawContext? {
+	func clearingContext (_ rect: CGRect) -> RedrawContext? {
 		return ClearingContext (rect, in: self);
 	}
 	
-	internal func titleRedrawContext (_ rect: CGRect) -> RedrawContext? {
+	func titleRedrawContext (_ rect: CGRect) -> RedrawContext? {
 		guard let month = self.month else {
 			return ClearingContext (rect, in: self);
 		}
 		return TitleRedrawContext (redrawing: rect, of: month, in: self);
 	}
 	
-	internal func gridRedrawContext (_ rect: CGRect) -> RedrawContext? {
+	func gridRedrawContext (_ rect: CGRect) -> RedrawContext? {
 		guard let month = self.month else {
 			return ClearingContext (rect, in: self);
 		}
@@ -276,7 +276,7 @@ extension CPCMonthView.TitleRedrawContext: CPCMonthViewRedrawContextImpl {
 }
 
 fileprivate extension CPCDayCellState {
-	fileprivate var parent: CPCDayCellState? {
+	var parent: CPCDayCellState? {
 		if self.contains (.isToday) {
 			return self.subtracting (.isToday);
 		} else if (self.contains (.selected) || self.contains (.highlighted) || self.contains (.disabled)) {
@@ -471,5 +471,5 @@ extension CPCMonthView.GridRedrawContext: CPCMonthViewRedrawContextImpl {
 }
 
 fileprivate extension NSParagraphStyle {
-	fileprivate static let dayCellTitleStyle = NSParagraphStyle.style (alignment: .center, lineBreakMode: .byClipping);
+	static let dayCellTitleStyle = NSParagraphStyle.style (alignment: .center, lineBreakMode: .byClipping);
 }

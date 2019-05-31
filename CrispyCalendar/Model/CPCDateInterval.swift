@@ -76,53 +76,53 @@ public protocol CPCDateIntervalInitializable: CPCDateInterval {
 // MARK: - Default implementations
 
 public extension CPCDateInterval {
-	public var duration: TimeInterval {
+	var duration: TimeInterval {
 		return self.end.timeIntervalSince (self.start);
 	}
 	
-	public func relative <C> (to collection: C) -> Range <Date> where C: Collection, C.Index == Date {
+	func relative <C> (to collection: C) -> Range <Date> where C: Collection, C.Index == Date {
 		return self.start ..< self.end;
 	}
 	
-	public func contains (_ date: Date) -> Bool {
+	func contains (_ date: Date) -> Bool {
 		return !((date < self.start) || (date >= self.end));
 	}
 
-	public func contains <R> (_ dateInterval: R) -> Bool where R: RangeExpression, R.Bound == Date {
+	func contains <R> (_ dateInterval: R) -> Bool where R: RangeExpression, R.Bound == Date {
 		return self.contains (dateInterval.unwrapped);
 	}
 
-	public func contains <R> (_ dateInterval: R) -> Bool where R: CPCDateInterval {
+	func contains <R> (_ dateInterval: R) -> Bool where R: CPCDateInterval {
 		return ((dateInterval.start >= self.start) && (dateInterval.end <= self.end));
 	}
 }
 
 public extension CPCDateInterval where Self: Strideable {
 	/// Previous interval (an interval that has the same `duration` and `end`s when this interval `start`s).
-	public var prev: Self {
+	var prev: Self {
 		return self.advanced (by: -1);
 	}
 	
 	/// Next interval (an interval that has the same `duration` and `start`s when this interval `end`s).
-	public var next: Self {
+	var next: Self {
 		return self.advanced (by: 1);
 	}
 }
 
 public extension CPCDateIntervalInitializable {
-	public init (_ date: Date) {
+	init (_ date: Date) {
 		self.init (date ..< date);
 	}
 	
-	public init <R> (_ other: R) where R: RangeExpression, R.Bound == Date {
+	init <R> (_ other: R) where R: RangeExpression, R.Bound == Date {
 		self.init (other.unwrapped);
 	}
 	
-	public func clamped <R> (to other: R) -> Self where R: RangeExpression, R.Bound == Date {
+	func clamped <R> (to other: R) -> Self where R: RangeExpression, R.Bound == Date {
 		return self.clamped (to: other.unwrapped);
 	}
 	
-	public func clamped <R> (to other: R) -> Self where R: CPCDateInterval {
+	func clamped <R> (to other: R) -> Self where R: CPCDateInterval {
 		let selfStart = self.start, selfEnd = self.end, otherStart = other.start, otherEnd = other.end;
 		if (selfStart >= otherEnd) {
 			return Self (otherEnd ..< otherEnd);

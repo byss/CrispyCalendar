@@ -86,35 +86,35 @@ internal struct CPCDayCellStateBasedStorage <Value>: ExpressibleByDictionaryLite
 }
 
 fileprivate extension UIEdgeInsets {
-	fileprivate static let defaultMonthTitle = UIEdgeInsets (top: 8.0, left: 8.0, bottom: 8.0, right: 8.0);
+	static let defaultMonthTitle = UIEdgeInsets (top: 8.0, left: 8.0, bottom: 8.0, right: 8.0);
 }
 
 fileprivate extension UIFont {
-	fileprivate static var defaultMonthTitle: UIFont {
+	static var defaultMonthTitle: UIFont {
 		return .preferredFont (forTextStyle: .headline);
 	}
 	
-	fileprivate static var defaultDayCellText: UIFont {
+	static var defaultDayCellText: UIFont {
 		return .preferredFont (forTextStyle: .body);
 	}
 }
 
 fileprivate extension UIColor {
-	fileprivate static var defaultMonthTitle: UIColor {
+	static var defaultMonthTitle: UIColor {
 		return .darkText;
 	}
 	
-	fileprivate static var defaultDayCellText: UIColor {
+	static var defaultDayCellText: UIColor {
 		return .darkText;
 	}
 	
-	fileprivate static var defaultSeparator: UIColor {
+	static var defaultSeparator: UIColor {
 		return .gray;
 	}
 }
 
 internal extension NSObjectProtocol {
-	internal var isAppearanceProxy: Bool {
+	var isAppearanceProxy: Bool {
 		guard let selfClass = object_getClass (self) else {
 			return true;
 		}
@@ -192,13 +192,13 @@ public protocol CPCViewProtocol: AnyObject {
 
 public extension CPCViewProtocol {
 	/// See `CPCViewTitleStyle`.
-	public typealias TitleStyle = CPCViewTitleStyle;
+	typealias TitleStyle = CPCViewTitleStyle;
 	/// See `CPCDayCellState`.
-	public typealias DayCellState = CPCDayCellState;
+	typealias DayCellState = CPCDayCellState;
 	/// See `CPCViewSelection`.
-	public typealias Selection = CPCViewSelection;
+	typealias Selection = CPCViewSelection;
 	/// See `CPCDayCellRenderer`.
-	public typealias CellRenderer = CPCDayCellRenderer;
+	typealias CellRenderer = CPCDayCellRenderer;
 	/// See `CPCViewAppearanceStorage`
 	internal typealias AppearanceStorage = CPCViewAppearanceStorage;
 }

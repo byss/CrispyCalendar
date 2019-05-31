@@ -24,15 +24,15 @@
 import Foundation
 
 internal extension CPCDay {
-	internal typealias BackingStorage = __CPCDayBackingStorage;
+	typealias BackingStorage = __CPCDayBackingStorage;
 }
 
 internal extension CPCMonth {
-	internal typealias BackingStorage = __CPCMonthBackingStorage;
+	typealias BackingStorage = __CPCMonthBackingStorage;
 }
 
 internal extension CPCYear {
-	internal typealias BackingStorage = __CPCYearBackingStorage;
+	typealias BackingStorage = __CPCYearBackingStorage;
 }
 
 extension CPCDay.BackingStorage: RawValueConvertible, ExpressibleByDateComponents, DateComponentsConvertible, CPCCalendarUnitBackingType {
@@ -273,7 +273,7 @@ extension __CPCYearMonthStorageLayout: CustomStringConvertible, CustomDebugStrin
 #endif
 
 fileprivate extension DateComponents {
-	fileprivate var encodedMonth: Int? {
+	var encodedMonth: Int? {
 		get {
 			return self.month.map {
 				if let isLeapMonth = self.isLeapMonth, isLeapMonth {
@@ -316,13 +316,13 @@ extension RawValueConvertible {
 }
 
 fileprivate extension FixedWidthInteger {
-	fileprivate var usedBitCount: Int {
+	var usedBitCount: Int {
 		return Self.bitWidth - self.leadingZeroBitCount;
 	}
 }
 
 fileprivate extension Range where Bound: FixedWidthInteger {
-	fileprivate var usedBitCount: Int {
+	var usedBitCount: Int {
 		return (self.upperBound - self.lowerBound - 1).usedBitCount;
 	}
 }

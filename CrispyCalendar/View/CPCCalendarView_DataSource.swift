@@ -24,7 +24,7 @@
 import UIKit
 
 internal extension CPCCalendarView {
-	internal final class DataSource: NSObject {
+	final class DataSource: NSObject {
 		internal static let cellReuseIdentifier = "CellID";
 
 		internal var calendar: CPCCalendarWrapper {
@@ -112,11 +112,11 @@ extension CPCCalendarView.DataSource: UICollectionViewDataSourcePrefetching {
 }
 
 internal extension CPCCalendarView.DataSource {
-	internal func scrollToToday (_ collectionView: UICollectionView, animated: Bool = true) {
+	func scrollToToday (_ collectionView: UICollectionView, animated: Bool = true) {
 		return self.scroll (collectionView: collectionView,  to: CPCDay (containing: self.scrollToTodayDate, calendar: self.calendar), animated: animated);
 	}
 	
-	internal func scroll (collectionView: UICollectionView, to day: CPCDay, animated: Bool = true) {
+	func scroll (collectionView: UICollectionView, to day: CPCDay, animated: Bool = true) {
 		let distance = self.startingMonth.distance (to: day.containingMonth);
 		let indexPath = self.referenceIndexPath.offset (by: distance);
 		collectionView.scrollToItem (at: indexPath, at: .centeredVertically, animated: animated);
@@ -300,15 +300,15 @@ private extension CPCCalendarView.DataSource {
 
 
 fileprivate extension CPCCalendarView.DataSource {
-	fileprivate var startingMonth: CPCMonth {
+	var startingMonth: CPCMonth {
 		return self.startingDay.containingMonth;
 	}
 	
-	fileprivate var startingYear: CPCYear {
+	var startingYear: CPCYear {
 		return self.startingDay.containingYear;
 	}
 	
-	fileprivate func cachedMonth (for indexPath: IndexPath) -> CPCMonth? {
+	func cachedMonth (for indexPath: IndexPath) -> CPCMonth? {
 		return self.cache.cachedMonth (for: indexPath);
 	}
 	
@@ -341,13 +341,13 @@ fileprivate extension CPCCalendarView.DataSource {
 }
 
 fileprivate extension IndexPath {
-	fileprivate init (referenceForDay day: CPCDay) {
+	init (referenceForDay day: CPCDay) {
 		self.init (item: .zerothVirtualItemIndex + day.containingYear [ordinal: 0].distance (to: day.containingMonth), section: 0);
 	}
 }
 
 fileprivate extension Sequence where Element: Comparable {
-	fileprivate func minmax () -> (minimum: Element, maximum: Element)? {
+	func minmax () -> (minimum: Element, maximum: Element)? {
 		var iterator = self.makeIterator ();
 		guard let first = iterator.next () else {
 			return nil;
@@ -362,12 +362,12 @@ fileprivate extension Sequence where Element: Comparable {
 }
 
 fileprivate extension CPCCalendarUnit {
-	fileprivate var middleDay: CPCDay {
+	var middleDay: CPCDay {
 		return CPCDay (containing: self.start + self.duration / 2, calendar: self.calendarWrapper);
 	}
 }
 
 fileprivate extension Int {
-	fileprivate static let virtualItemsCount = 0x40000;
-	fileprivate static let zerothVirtualItemIndex = Int.virtualItemsCount / 2;
+	static let virtualItemsCount = 0x40000;
+	static let zerothVirtualItemIndex = Int.virtualItemsCount / 2;
 }

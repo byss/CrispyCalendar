@@ -51,7 +51,7 @@ private func logSelectionIsEmptyInconsistencyOnce () {
 #endif
 
 fileprivate extension Collection where Element: CustomStringConvertible {
-	fileprivate func joinedDescription (separator: String = ", ", edgeDelimiters: (String, String)? = nil) -> String {
+	func joinedDescription (separator: String = ", ", edgeDelimiters: (String, String)? = nil) -> String {
 		let joinedElementDescriptions = self.map { $0.description }.joined (separator: separator);
 		guard let edgeDelimiters = edgeDelimiters else {
 			return joinedElementDescriptions;

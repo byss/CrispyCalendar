@@ -24,7 +24,7 @@
 import UIKit
 
 fileprivate extension CGSize {
-	fileprivate enum Constraint {
+	enum Constraint {
 		case none;
 		case width (CGFloat);
 		case height (CGFloat);
@@ -49,7 +49,7 @@ fileprivate extension CGSize {
 		return (value.isFinite && !CGSize.unconstrainedDimensionValues.contains (value) && CGSize.saneAspectRatiosRange.contains (value / other));
 	}
 	
-	fileprivate var constraint: Constraint {
+	var constraint: Constraint {
 		let width = self.width, height = self.height;
 		if (CGSize.isDimensionConstrained (width, relativeTo: height)) {
 			if (CGSize.isDimensionConstrained (height, relativeTo: width)) {
@@ -118,15 +118,15 @@ public protocol CPCViewMeasuring {
 }
 
 public extension CPCViewMeasuring {
-	public static func widthThatFits (height: CGFloat, with attributes: LayoutAttributes) -> CGFloat {
+	static func widthThatFits (height: CGFloat, with attributes: LayoutAttributes) -> CGFloat {
 		return self.sizeThatFits (CGSize (width: .infinity, height: height), with: attributes).width;
 	}
 	
-	public static func heightThatFits (width: CGFloat, with attributes: LayoutAttributes) -> CGFloat {
+	static func heightThatFits (width: CGFloat, with attributes: LayoutAttributes) -> CGFloat {
 		return self.sizeThatFits (CGSize (width: width, height: .infinity), with: attributes).height;
 	}
 	
-	public func sizeThatFits (_ size: CGSize, attributes: LayoutAttributes) -> CGSize {
+	func sizeThatFits (_ size: CGSize, attributes: LayoutAttributes) -> CGSize {
 		return Self.sizeThatFits (size, with: attributes);
 	}
 }

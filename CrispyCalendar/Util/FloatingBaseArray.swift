@@ -62,66 +62,66 @@ extension FloatingBaseArray: MutableCollection, RandomAccessCollection {
 }
 
 internal extension FloatingBaseArray /* RangeReplacementCollection subset */ {
-	internal init (baseOffset: Int = 0) {
+	init (baseOffset: Int = 0) {
 		self.backing = ContiguousArray ();
 		self.baseOffset = baseOffset;
 	}
 
-	internal init (_ other: FloatingBaseArray) {
+	init (_ other: FloatingBaseArray) {
 		self.backing = other.backing;
 		self.baseOffset = other.baseOffset;
 	}
 
-	internal init <S> (_ elements: S, baseOffset: Int = 0) where S: Sequence, S.Element == Element {
+	init <S> (_ elements: S, baseOffset: Int = 0) where S: Sequence, S.Element == Element {
 		self.backing = ContiguousArray (elements);
 		self.baseOffset = baseOffset;
 	}
 	
-	internal mutating func append (_ newElement: Element) {
+	mutating func append (_ newElement: Element) {
 		self.backing.append (newElement);
 	}
 	
-	internal mutating func append <S> (contentsOf newElements: S) where S: Sequence, S.Element == Element {
+	mutating func append <S> (contentsOf newElements: S) where S: Sequence, S.Element == Element {
 		self.backing.append (contentsOf: newElements);
 	}
 	
-	internal mutating func prepend (_ newElement: Element) {
+    mutating func prepend (_ newElement: Element) {
 		self.backing.insert (newElement, at: self.backing.startIndex);
 		self.baseOffset -= 1;
 	}
 	
-	internal mutating func prepend <C> (contentsOf newElements: C) where C: Collection, C.Element == Element {
+	mutating func prepend <C> (contentsOf newElements: C) where C: Collection, C.Element == Element {
 		self.backing.insert (contentsOf: newElements, at: self.backing.startIndex);
 		self.baseOffset -= newElements.count;
 	}
 	
-	internal mutating func popLast () -> Element? {
+	mutating func popLast () -> Element? {
 		return self.isEmpty ? nil : self.removeLast ();
 	}
 	
-	internal mutating func removeLast () -> Element {
+	mutating func removeLast () -> Element {
 		return self.backing.removeLast ();
 	}
 	
-	internal mutating func removeLast (_ k: Int) {
+	mutating func removeLast (_ k: Int) {
 		return self.backing.removeLast (k);
 	}
 	
-	internal mutating func popFirst () -> Element? {
+	mutating func popFirst () -> Element? {
 		return self.isEmpty ? nil : self.removeFirst ();
 	}
 	
-	internal mutating func removeFirst () -> Element {
+	mutating func removeFirst () -> Element {
 		self.baseOffset += 1;
 		return self.backing.removeFirst ();
 	}
 	
-	internal mutating func removeFirst (_ k: Int) {
+	mutating func removeFirst (_ k: Int) {
 		self.baseOffset += k;
 		return self.backing.removeFirst (k);
 	}
 
-	internal mutating func reserveCapacity (_ capacity: Int) {
+	mutating func reserveCapacity (_ capacity: Int) {
 		self.backing.reserveCapacity (capacity);
 	}
 }
@@ -141,13 +141,13 @@ internal extension FloatingBaseArray {
 }
 
 internal extension Range where Bound: Strideable {
-	internal func offset (by offset: Bound.Stride) -> Range {
+	func offset (by offset: Bound.Stride) -> Range {
 		return self.lowerBound.advanced (by: offset) ..< self.upperBound.advanced (by: offset);
 	}
 }
 
 internal extension FloatingBaseArray where Element: NSObject, Element: NSCopying {
-	internal init (_ other: FloatingBaseArray, copyItems: Bool) {
+	init (_ other: FloatingBaseArray, copyItems: Bool) {
 		if (copyItems) {
 			self.init (other.backing, baseOffset: other.baseOffset, copyItems: true);
 		} else {
@@ -155,7 +155,7 @@ internal extension FloatingBaseArray where Element: NSObject, Element: NSCopying
 		}
 	}
 
-	internal init <S> (_ elements: S, baseOffset: Int = 0, copyItems: Bool) where S: Sequence, S.Element == Element {
+	init <S> (_ elements: S, baseOffset: Int = 0, copyItems: Bool) where S: Sequence, S.Element == Element {
 		guard copyItems else {
 			self.init (elements, baseOffset: baseOffset);
 			return;

@@ -24,7 +24,7 @@
 import UIKit
 
 internal extension CGRect {
-	internal var bounds: CGRect {
+	var bounds: CGRect {
 		return CGRect (origin: .zero, size: CGSize (width: self.size.width.magnitude, height: self.size.height.magnitude));
 	}
 }

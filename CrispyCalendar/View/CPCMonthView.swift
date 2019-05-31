@@ -24,7 +24,7 @@
 import UIKit
 
 fileprivate extension NSLayoutConstraint {
-	fileprivate static let placeholder = UIView ().widthAnchor.constraint (equalToConstant: 0.0);
+	static let placeholder = UIView ().widthAnchor.constraint (equalToConstant: 0.0);
 }
 
 /// Use a selection delegate (a custom object that implements this protocol) to modify behavior
@@ -592,33 +592,33 @@ extension CPCMonthView: CPCFixedAspectRatioView {
 }
 
 internal extension CPCMonthView {
-	internal func titleFontDidUpdate () {
+	func titleFontDidUpdate () {
 		self.effectiveTitleFont = self.scaledFont (self.titleFont, using: CPCMonthView.titleMetrics);
 	}
 	
-	internal func titleMarginsDidUpdate () {
+	func titleMarginsDidUpdate () {
 		self.effectiveTitleMargins = self.scaledInsets (self.titleMargins, using: CPCMonthView.titleMetrics);
 	}
 	
-	internal func titleAppearanceDidUpdate () {
+	func titleAppearanceDidUpdate () {
 		if (self.needsFullAppearanceUpdate) {
 			return;
 		}
 		self.setNeedsDisplay (self.layout?.titleFrame ?? self.bounds);
 	}
 	
-	internal func dayCellFontDidUpdate () {
+	func dayCellFontDidUpdate () {
 		self.effectiveDayCellFont = self.scaledFont (self.dayCellFont, using: CPCMonthView.dayCellTextMetrics);
 	}
 	
-	internal func gridAppearanceDidUpdate () {
+	func gridAppearanceDidUpdate () {
 		if (self.needsFullAppearanceUpdate) {
 			return;
 		}
 		self.setNeedsDisplay (self.layout?.gridFrame ?? self.bounds);
 	}
 	
-	internal func gridAppearanceDidUpdate (for state: DayCellState) {
+	func gridAppearanceDidUpdate (for state: DayCellState) {
 		if (self.needsFullAppearanceUpdate) {
 			return;
 		}
@@ -702,7 +702,7 @@ extension CPCMonthView {
 }
 
 fileprivate extension Calendar {
-	fileprivate func estimateSpan (of unit: Calendar.Component, in other: Calendar.Component) -> ClosedRange <Int> {
+	func estimateSpan (of unit: Calendar.Component, in other: Calendar.Component) -> ClosedRange <Int> {
 		if let minRange = self.minimumRange (of: unit), let maxRange = self.maximumRange (of: unit) {
 			return minRange.count ... maxRange.count;
 		} else if let currentRange = self.range (of: unit, in: other, for: Date ()) {
@@ -722,7 +722,7 @@ fileprivate extension Calendar {
 }
 
 fileprivate extension CPCViewAppearanceStorage {
-	fileprivate var monthViewInitializationValues: (UIFont, UIEdgeInsets, UIFont) {
+	var monthViewInitializationValues: (UIFont, UIEdgeInsets, UIFont) {
 		return (self.titleFont, self.titleMargins, self.dayCellFont);
 	}
 }

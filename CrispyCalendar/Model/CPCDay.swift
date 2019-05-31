@@ -47,85 +47,85 @@ extension CPCDay: CPCCalendarUnit {
 
 public extension CPCDay {
 	/// Value that represents a current day.
-	public static var today: CPCDay {
+	static var today: CPCDay {
 		return self.today (using: CalendarWrapper.currentUsed);
 	}
 
 	/// Value that represents yesterday.
-	public static var yesterday: CPCDay {
+	static var yesterday: CPCDay {
 		return self.yesterday (using: CalendarWrapper.currentUsed);
 	}
 	
 	/// Value that represents tomorrow.
-	public static var tomorrow: CPCDay {
+	static var tomorrow: CPCDay {
 		return self.tomorrow (using: CalendarWrapper.currentUsed);
 	}
 	
 	/// Era of the represented month's year.
-	public var era: Int {
+	var era: Int {
 		return self.backingValue.era;
 	}
 
 	/// Year of represented day.
-	public var year: Int {
+	var year: Int {
 		return self.backingValue.year;
 	}
 	
 	/// Month of represented day.
-	public var month: Int {
+	var month: Int {
 		return self.backingValue.month;
 	}
 	
 	/// Week number of represented day.
-	public var week: Int {
+	var week: Int {
 		return self.calendar.component (.weekOfYear, from: self.start);
 	}
 	
 	/// This day's number.
-	public var day: Int {
+	var day: Int {
 		return self.backingValue.day;
 	}
 	
 	/// Year that contains represented day.
-	public var containingYear: CPCYear {
+	var containingYear: CPCYear {
 		return CPCYear (backedBy: self.backingValue.containingYear (self.calendarWrapper), calendar: self.calendarWrapper);
 	}
 	
 	/// Month that contains represented day.
-	public var containingMonth: CPCMonth {
+	var containingMonth: CPCMonth {
 		return CPCMonth (backedBy: self.backingValue.containingMonth (self.calendarWrapper), calendar: self.calendarWrapper);
 	}
 	
 	/// Week that contains represented day.
-	public var containingWeek: CPCWeek {
+	var containingWeek: CPCWeek {
 		return CPCWeek (containing: self.start, calendarOf: self);
 	}
 	
 	/// Value that represents a current day in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	public static func today (using calendar: Calendar) -> CPCDay {
+	static func today (using calendar: Calendar) -> CPCDay {
 		return self.today (using: calendar.wrapped ());
 	}
 	
 	/// Value that represents yesterday in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	public static func yesterday (using calendar: Calendar) -> CPCDay {
+	static func yesterday (using calendar: Calendar) -> CPCDay {
 		return self.yesterday (using: calendar.wrapped ());
 	}
 	
 	/// Value that represents tomorrow in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	public static func tomorrow (using calendar: Calendar) -> CPCDay {
+	static func tomorrow (using calendar: Calendar) -> CPCDay {
 		return self.tomorrow (using: calendar.wrapped ());
 	}
 
 	/// Create a new value, corresponding to a day in the future or past.
 	///
 	/// - Parameter daysSinceNow: Distance from today in days.
-	public init (daysSinceNow: Int) {
+	init (daysSinceNow: Int) {
 		self = CPCDay.today.advanced (by: daysSinceNow);
 	}
 }
@@ -134,21 +134,21 @@ internal extension CPCDay {
 	/// Value that represents a current day in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	internal static func today (using calendar: CalendarWrapper) -> CPCDay {
+	static func today (using calendar: CalendarWrapper) -> CPCDay {
 		return self.cachedCommonUnit (for: .current, calendar: calendar);
 	}
 	
 	/// Value that represents yesterday in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	internal static func yesterday (using calendar: CalendarWrapper) -> CPCDay {
+	static func yesterday (using calendar: CalendarWrapper) -> CPCDay {
 		return self.cachedCommonUnit (for: .previous, calendar: calendar);
 	}
 	
 	/// Value that represents tomorrow in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	internal static func tomorrow (using calendar: CalendarWrapper) -> CPCDay {
+	static func tomorrow (using calendar: CalendarWrapper) -> CPCDay {
 		return self.cachedCommonUnit (for: .following, calendar: calendar);
 	}
 

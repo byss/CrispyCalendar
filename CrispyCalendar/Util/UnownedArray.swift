@@ -104,16 +104,16 @@ extension UnownedDictionary: Collection, ExpressibleByDictionaryLiteral {
 }
 
 internal extension UnsafePointer where Pointee: AnyObject {
-	internal var pointee: Pointee {
+	var pointee: Pointee {
 		return Unmanaged <Pointee>.fromOpaque (self).takeUnretainedValue ();
 	}
 	
-	internal init (to object: Pointee) {
+	init (to object: Pointee) {
 		// Fuck, should be this so-o-o complicated?
 		self.init (Unmanaged.passUnretained (object).toOpaque ().assumingMemoryBound (to: Pointee.self));
 	}
 
-	internal init? (to object: Pointee?) {
+	init? (to object: Pointee?) {
 		guard let object = object else {
 			return nil;
 		}

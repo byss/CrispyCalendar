@@ -63,65 +63,65 @@ extension CPCMonth: CPCCompoundCalendarUnit {
 
 public extension CPCMonth {
 	/// Value that represents a current month.
-	public static var current: CPCMonth {
+	static var current: CPCMonth {
 		return self.current (using: CalendarWrapper.currentUsed);
 	}
 	
 	/// Value that represents a next month.
-	public static var next: CPCMonth {
+	static var next: CPCMonth {
 		return self.next (using: CalendarWrapper.currentUsed);
 	}
 	
 	/// Value that represents a previous month.
-	public static var prev: CPCMonth {
+	static var prev: CPCMonth {
 		return self.prev (using: CalendarWrapper.currentUsed);
 	}
 	
 	/// Era of the represented month's year.
-	public var era: Int {
+	var era: Int {
 		return self.backingValue.era;
 	}
 
 	/// Year of represented month.
-	public var year: Int {
+	var year: Int {
 		return self.backingValue.year;
 	}
 	
 	/// Month number of represented month.
-	public var month: Int {
+	var month: Int {
 		return self.backingValue.month;
 	}
 	
 	/// Year that contains represented month.
-	public var containingYear: CPCYear {
+	var containingYear: CPCYear {
 		return CPCYear (backedBy: self.backingValue.containingYear (self.calendarWrapper), calendar: self.calendarWrapper);
 	}
 	
 	/// Value that represents a current month in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	public static func current (using calendar: Calendar) -> CPCMonth {
+	static func current (using calendar: Calendar) -> CPCMonth {
 		return self.current (using: calendar.wrapped ());
 	}
 	
 	/// Value that represents next month in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	public static func next (using calendar: Calendar) -> CPCMonth {
+	static func next (using calendar: Calendar) -> CPCMonth {
 		return self.next (using: calendar.wrapped ());
 	}
 	
 	/// Value that represents previous month in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	public static func prev (using calendar: Calendar) -> CPCMonth {
+	static func prev (using calendar: Calendar) -> CPCMonth {
 		return self.prev (using: calendar.wrapped ());
 	}
 	
 	/// Create a new value, corresponding to a month in the future or past.
 	///
 	/// - Parameter monthsSinceNow: Distance from current month in months.
-	public init (monthsSinceNow: Int) {
+	init (monthsSinceNow: Int) {
 		self = CPCMonth.current.advanced (by: monthsSinceNow);
 	}
 }
@@ -130,21 +130,21 @@ internal extension CPCMonth {
 	/// Value that represents a current month in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	internal static func current (using calendar: CalendarWrapper) -> CPCMonth {
+	static func current (using calendar: CalendarWrapper) -> CPCMonth {
 		return self.cachedCommonUnit (for: .current, calendar: calendar);
 	}
 	
 	/// Value that represents next month in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	internal static func next (using calendar: CalendarWrapper) -> CPCMonth {
+	static func next (using calendar: CalendarWrapper) -> CPCMonth {
 		return self.cachedCommonUnit (for: .following, calendar: calendar);
 	}
 	
 	/// Value that represents previous month in the specified calendar.
 	///
 	/// - Parameter calendar: Calendar to use.
-	internal static func prev (using calendar: CalendarWrapper) -> CPCMonth {
+	static func prev (using calendar: CalendarWrapper) -> CPCMonth {
 		return self.cachedCommonUnit (for: .previous, calendar: calendar);
 	}
 }

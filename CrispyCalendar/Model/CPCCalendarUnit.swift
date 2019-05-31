@@ -292,7 +292,7 @@ fileprivate extension DateIntervalFormatter {
 	
 	private static var calendarUnitIntervalFormatters = UnfairThreadsafeStorage ([CacheKey: DateIntervalFormatter] ());
 	
-	fileprivate static func calendarUnitIntervalFormatter <Unit> (for unitType: Unit.Type, calendar: CPCCalendarWrapper) -> DateIntervalFormatter where Unit: CPCCalendarUnit {
+	static func calendarUnitIntervalFormatter <Unit> (for unitType: Unit.Type, calendar: CPCCalendarWrapper) -> DateIntervalFormatter where Unit: CPCCalendarUnit {
 		let key = CacheKey (for: unitType, calendar: calendar);
 		return self.calendarUnitIntervalFormatters.withMutableStoredValue {
 			if let storedValue = $0 [key] {
@@ -308,13 +308,13 @@ fileprivate extension DateIntervalFormatter {
 }
 
 internal extension Locale {
-	internal static var currentUsed: Locale {
+	static var currentUsed: Locale {
 		return Bundle.main.preferredLocalizations.first.map (Locale.init) ?? .current;
 	}
 }
 
 internal extension Calendar {
-	internal static var currentUsed: Calendar {
+	static var currentUsed: Calendar {
 		var result = Calendar.current;
 		result.locale = .currentUsed;
 		return result;

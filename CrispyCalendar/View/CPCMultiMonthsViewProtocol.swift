@@ -28,17 +28,17 @@ internal protocol CPCMultiMonthsViewProtocol: AnyObject {
 }
 
 internal extension CPCMultiMonthsViewProtocol {
-	internal var unownedMonthViews: UnownedArray <CPCMonthView> {
+	var unownedMonthViews: UnownedArray <CPCMonthView> {
 		return self.monthViewsManager.unownedMonthViews;
 	}
 	
-	internal func updateManagedMonthViews (using block: (CPCMonthView) -> ()) {
+	func updateManagedMonthViews (using block: (CPCMonthView) -> ()) {
 		self.monthViewsManager.updateManagedMonthViews (using: block);
 	}
 }
 
 internal extension CPCMultiMonthsViewProtocol where Self: CPCViewDelegatingSelectionHandling {
-	internal var selectionHandler: SelectionHandler {
+	var selectionHandler: SelectionHandler {
 		get { return self.monthViewsManager.multiSelectionHandler }
 		set { self.monthViewsManager.setMultiSelectionHandler (newValue) }
 	}
@@ -73,11 +73,11 @@ internal final class CPCMonthViewsManager {
 }
 
 internal extension CPCMonthViewsManager {
-	internal var monthViews: [CPCMonthView] {
+	var monthViews: [CPCMonthView] {
 		return Array (self.unownedMonthViews);
 	}
 	
-	internal func addMonthView (_ monthView: CPCMonthView) {
+	func addMonthView (_ monthView: CPCMonthView) {
 		monthView.removeFromMultiMonthViewsManager ();
 		self.unownedMonthViews.append (monthView);
 		if (self.selectionDidChangeBlock != nil) {
@@ -89,14 +89,14 @@ internal extension CPCMonthViewsManager {
 		monthView.setNeedsDisplay ();
 	}
 	
-	internal func removeMonthView (_ monthView: CPCMonthView) {
+	func removeMonthView (_ monthView: CPCMonthView) {
 		guard let removedView = self.unownedMonthViews.remove (where: { $0 === monthView }) else {
 			return;
 		}
 		self.unassociateMonthView (removedView);
 	}
 	
-	internal func updateManagedMonthViews (using block: (CPCMonthView) -> ()) {
+	func updateManagedMonthViews (using block: (CPCMonthView) -> ()) {
 		self.unownedMonthViews.forEach (block);
 	}
 	
@@ -221,12 +221,12 @@ internal extension CPCMonthViewsManager {
 		}
 	}
 	
-	internal var selection: CPCViewSelection {
+	var selection: CPCViewSelection {
 		get { return self.multiSelectionHandler.selection }
 		set { self.multiSelectionHandler = CPCViewSelectionHandler.primitive (for: newValue) }
 	}
 	
-	internal var selectionHandler: CPCViewSelectionHandlerProtocol {
+	var selectionHandler: CPCViewSelectionHandlerProtocol {
 		get { return self.multiSelectionHandler }
 		set { self.setMultiSelectionHandler (newValue) }
 	}
@@ -253,7 +253,7 @@ internal extension CPCMonthViewsManager {
 }
 
 fileprivate extension RangeReplaceableCollection {
-	fileprivate mutating func remove (where predicate: (Element) throws -> Bool) rethrows -> Element? {
+	mutating func remove (where predicate: (Element) throws -> Bool) rethrows -> Element? {
 		return try self.index (where: predicate).map { self.remove (at: $0) };
 	}
 }

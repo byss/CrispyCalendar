@@ -27,7 +27,7 @@ import Swift
 /// A type that provides a collection of all of its values.
 public protocol CaseIterable {
 	/// A type that can represent a collection of all values of this type.
-	associatedtype AllCases = [Self] where AllCases: Collection AllCases.Element == Self;
+	associatedtype AllCases = [Self] where AllCases: Collection, AllCases.Element == Self;
 
 	/// A collection of all values of this type.
 	public static var allCases: AllCases { get }
@@ -55,15 +55,15 @@ extension CPCDayCellState: CaseIterable {
 }
 
 internal extension CPCDayCellState {
-	internal var isCompressible: Bool {
+	var isCompressible: Bool {
 		return __CPCDayCellStateIsCompressible (self);
 	}
 	
-	internal var compressedIndex: Int {
+	var compressedIndex: Int {
 		return __CPCDayCellStateGetPerfectHash (self);
 	}
 	
-	internal init (compresedIndex: Int) {
+	init (compresedIndex: Int) {
 		self = __CPCDayCellStateFromPerfectHash (compresedIndex);
 	}
 }

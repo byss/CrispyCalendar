@@ -68,14 +68,14 @@ public protocol CPCDayCellRenderer {
 
 public extension CPCDayCellRenderer {
 	/// - SeeAlso: `CPCDayCellRenderingContext`.
-	public typealias Context = CPCDayCellRenderingContext;
+	typealias Context = CPCDayCellRenderingContext;
 
-	public func drawCell (in context: Context) {
+	func drawCell (in context: Context) {
 		self.drawCellBackground (in: context);
 		self.drawCellTitle (in: context);
 	}
 	
-	public func drawCellBackground (in context: Context) {
+	func drawCellBackground (in context: Context) {
 		self.drawCellBackground (state: context.state, color: context.backgroundColor, frame: context.frame, in: context.graphicsContext);
 	}
 	
@@ -86,7 +86,7 @@ public extension CPCDayCellRenderer {
 	///   - color: Target background color.
 	///   - frame: Cell frame.
 	///   - context: Graphics context to draw in.
-	public func drawCellBackground (state: CPCDayCellState, color: UIColor?, frame: CGRect, in context: CGContext) {
+	func drawCellBackground (state: CPCDayCellState, color: UIColor?, frame: CGRect, in context: CGContext) {
 		guard state != [], let color = color else {
 			return;
 		}
@@ -97,7 +97,7 @@ public extension CPCDayCellRenderer {
 		context.restoreGState ();
 	}
 	
-	public func drawCellTitle (in context: Context) {
+	func drawCellTitle (in context: Context) {
 		self.drawCellTitle (title: context.title, attributes: context.titleAttributes, frame: context.titleFrame, in: context.graphicsContext);
 	}
 	
@@ -108,7 +108,7 @@ public extension CPCDayCellRenderer {
 	///   - attributes: Cell title attributes, e.g. foreground color or font.
 	///   - frame: Cell title target frame.
 	///   - context: Graphics context to draw in.
-	public func drawCellTitle (title: NSString, attributes: NSDictionary, frame: CGRect, in context: CGContext) {
+	func drawCellTitle (title: NSString, attributes: NSDictionary, frame: CGRect, in context: CGContext) {
 		__CrispyCalendar_CPCDayCellRenderer_drawCellTitle (title, attributes, frame, context);
 	}
 }

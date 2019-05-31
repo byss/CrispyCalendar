@@ -133,7 +133,7 @@ extension CPCCompoundCalendarUnit {
 
 internal extension ContiguousArray where Element == Int {
 	@usableFromInline
-	internal func ordinalValue (forCompoundCalendarUnitComponentValue componentValue: Int) -> Int? {
+	func ordinalValue (forCompoundCalendarUnitComponentValue componentValue: Int) -> Int? {
 		let expected = componentValue - self [0];
 		if ((self.indices ~= expected) && (self [expected] == componentValue)) {
 			return expected;

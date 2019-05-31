@@ -28,7 +28,7 @@ public extension CPCViewSelection {
 	///
 	/// - Parameter day: The day to check for containment.
 	/// - Returns: `true` if given is contained in the selection; otherwise, `false`.
-	public func isDaySelected (_ day: CPCDay) -> Bool {
+	func isDaySelected (_ day: CPCDay) -> Bool {
 		switch (self) {
 		case .none:
 			return false;
@@ -44,7 +44,7 @@ public extension CPCViewSelection {
 	}
 	
 	/// A Boolean value indicating whether the selection does not contain any day.
-	public var isEmpty: Bool {
+	var isEmpty: Bool {
 		switch (self) {
 		case .none, .single (nil):
 			return true;
@@ -78,14 +78,14 @@ public extension CPCViewSelection {
 	///
 	/// - Parameter other: Selection value to calculate difference from.
 	/// - Returns: Difference between selection values.
-	public func difference (_ other: CPCViewSelection) -> Set <CPCDay> {
+	func difference (_ other: CPCViewSelection) -> Set <CPCDay> {
 		return self.selectedDays.symmetricDifference (other.selectedDays);
 	}
 	
 	/// Returns a subset of this selection that contains days matching specified date constraints.
 	///
 	/// - Parameter datesRange: The limits to clamp this selection to.
-	public func clamped <R> (to datesRange: R) -> CPCViewSelection where R: CPCDateInterval {
+	func clamped <R> (to datesRange: R) -> CPCViewSelection where R: CPCDateInterval {
 		switch (self) {
 		case .single (.some (let day)) where !datesRange.contains (day):
 			return .single (nil)
@@ -109,7 +109,7 @@ public extension CPCViewSelection {
 	/// - Parameters:
 	///   - lhs: The first value to unite.
 	///   - rhs: The second value to unite.
-	public static func += (lhs: inout CPCViewSelection, rhs: CPCViewSelection) {
+	static func += (lhs: inout CPCViewSelection, rhs: CPCViewSelection) {
 		switch (lhs, rhs) {
 		case (let lhs, let rhs) where lhs == rhs:
 			return;
@@ -194,7 +194,7 @@ public extension CPCViewSelection {
 	/// - Parameters:
 	///   - lhs: The first value to unite.
 	///   - rhs: The second value to unite.
-	public static func + (lhs: CPCViewSelection, rhs: CPCViewSelection) -> CPCViewSelection {
+	static func + (lhs: CPCViewSelection, rhs: CPCViewSelection) -> CPCViewSelection {
 		var result = lhs;
 		result += rhs;
 		return result;
@@ -205,7 +205,7 @@ public extension CPCViewSelection {
 	/// - Parameters:
 	///   - lhs: Selection value to subtract days from.
 	///   - rhs:Value indicating days that should not be selected.
-	public static  func -= (lhs: inout CPCViewSelection, rhs: CPCViewSelection) {
+	static  func -= (lhs: inout CPCViewSelection, rhs: CPCViewSelection) {
 		switch (lhs, rhs) {
 		case (_, .none), (.none, _), (_, .single (nil)), (.single (nil), _), (.unordered ([]), _), (_, .unordered ([])), (.ordered ([]), _), (.ordered ([]), _):
 			return;
@@ -277,7 +277,7 @@ public extension CPCViewSelection {
 	/// - Parameters:
 	///   - lhs: Selection value to subtract days from.
 	///   - rhs:Value indicating days that should not be selected.
-	public static func - (lhs: CPCViewSelection, rhs: CPCViewSelection) -> CPCViewSelection {
+	static func - (lhs: CPCViewSelection, rhs: CPCViewSelection) -> CPCViewSelection {
 		var result = lhs;
 		result -= rhs;
 		return result;

@@ -148,11 +148,11 @@ extension BoundedRangeProtocol {
 }
 
 internal extension BoundedRangeProtocol where Bound: Strideable {
-	internal var span: Bound.Stride {
+	var span: Bound.Stride {
 		return self.lowerBound.distance (to: self.upperBound);
 	}
 	
-	internal func formsContiguousUnion (with value: Bound) -> Bool {
+	func formsContiguousUnion (with value: Bound) -> Bool {
 		let lowerBound = self.lowerBound, upperBound = self.upperBound;
 		switch (value) {
 		case _ where lowerBound == upperBound, lowerBound ... upperBound:
@@ -166,7 +166,7 @@ internal extension BoundedRangeProtocol where Bound: Strideable {
 		}
 	}
 	
-	internal func contiguousUnion (_ value: Bound) -> Self? {
+	func contiguousUnion (_ value: Bound) -> Self? {
 		let lowerBound = self.lowerBound, upperBound = self.upperBound;
 		switch (value) {
 		case _ where self.isEmpty:
@@ -182,7 +182,7 @@ internal extension BoundedRangeProtocol where Bound: Strideable {
 		}
 	}
 	
-	internal func clamp (_ value: Bound) -> Bound {
+	func clamp (_ value: Bound) -> Bound {
 		let lowerBound = self.lowerBound, upperBound = self.upperBound;
 		switch (value) {
 		case _ where lowerBound == upperBound:

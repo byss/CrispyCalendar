@@ -24,9 +24,9 @@
 import UIKit
 
 internal extension CPCCalendarView.Layout {
-	internal typealias AspectRatio = CPCMonthView.AspectRatio;
+	typealias AspectRatio = CPCMonthView.AspectRatio;
 	
-	internal final class Storage {
+	final class Storage {
 		internal struct LayoutInfo {
 			internal var columnCount = 1;
 			internal var contentGuide: Range <CGFloat>;
@@ -214,31 +214,31 @@ internal extension CPCCalendarView.Layout {
 }
 
 internal extension CPCCalendarView.Layout.Storage {
-	internal var minY: CGFloat {
+	var minY: CGFloat {
 		return self.firstAttributes.frame.minY;
 	}
 	
-	internal var maxY: CGFloat {
+	var maxY: CGFloat {
 		return self.lastAttributes.frame.maxY;
 	}
 	
-	internal var firstRowIndex: Int {
+	var firstRowIndex: Int {
 		return self.rawAttributes.startIndex / self.columnCount;
 	}
 	
-	internal var lastRowIndex: Int {
+	var lastRowIndex: Int {
 		return self.rawAttributes.endIndex / self.columnCount;
 	}
 	
-	internal var firstIndexPath: IndexPath {
+	var firstIndexPath: IndexPath {
 		return self.firstAttributes.indexPath;
 	}
 	
-	internal var lastIndexPath: IndexPath {
+	var lastIndexPath: IndexPath {
 		return self.lastAttributes.indexPath.next;
 	}
 	
-	internal subscript (indexPath: IndexPath) -> CPCCalendarView.Layout.Attributes? {
+	subscript (indexPath: IndexPath) -> CPCCalendarView.Layout.Attributes? {
 		guard let rowStartIndex = self.rawAttributes.binarySearch (withGranularity: self.columnCount, using: {
 			if ($0.indexPath.item > indexPath.item) {
 				return .orderedAscending;
@@ -257,7 +257,7 @@ internal extension CPCCalendarView.Layout.Storage {
 		return result;
 	}
 	
-	internal func layoutElements (in rect: CGRect) {
+	func layoutElements (in rect: CGRect) {
 		repeat {
 			let invalidRow: Row;
 			if let validatedRows = self.validatedRows {
@@ -276,7 +276,7 @@ internal extension CPCCalendarView.Layout.Storage {
 		} while (true);
 	}
 
-	internal subscript (rect: CGRect) -> [CPCCalendarView.Layout.Attributes] {
+	subscript (rect: CGRect) -> [CPCCalendarView.Layout.Attributes] {
 		guard let topRow = self.row (containing: rect.minY, allowBeforeFirst: true), let bottomRow = self.row (containing: rect.maxY, allowAfterLast: true) else {
 			return [];
 		}
@@ -305,17 +305,17 @@ internal extension CPCCalendarView.Layout.Storage {
 		}
 	}
 	
-	internal func updateStoredAttributes (using newAspectRatios: [AttributesPosition: CPCMonthView.AspectRatio]) {
+	func updateStoredAttributes (using newAspectRatios: [AttributesPosition: CPCMonthView.AspectRatio]) {
 		for (position, aspectRatio) in newAspectRatios {
 			self.rawAttributes [position.row * self.columnCount + position.item].aspectRatio = aspectRatio;
 		}
 	}
 	
-	internal func invalidate () {
+	func invalidate () {
 		self.validatedRows = nil;
 	}
 	
-	internal func invalidate <S> (rowsIn invalidatedRows: S) where S: Sequence, S.Element == Int {
+	func invalidate <S> (rowsIn invalidatedRows: S) where S: Sequence, S.Element == Int {
 		guard let validatedRows = self.validatedRows else {
 			return;
 		}
@@ -336,7 +336,7 @@ internal extension CPCCalendarView.Layout.Storage {
 		self.validatedRows = lowerBound ... upperBound;
 	}
 
-	internal func isStorageValid (forContentGuide contentGuide: Range <CGFloat>, columnSpacing: CGFloat) -> Bool {
+	func isStorageValid (forContentGuide contentGuide: Range <CGFloat>, columnSpacing: CGFloat) -> Bool {
 		return (
 			((self.contentGuide.lowerBound - contentGuide.lowerBound).magnitude < 1e-3) &&
 			((self.contentGuide.upperBound - contentGuide.upperBound).magnitude < 1e-3) &&
@@ -344,11 +344,11 @@ internal extension CPCCalendarView.Layout.Storage {
 		);
 	}
 
-	internal func isStorageValid (forColumnCount columnCount: Int) -> Bool {
+	func isStorageValid (forColumnCount columnCount: Int) -> Bool {
 		return self.columnCount == columnCount;
 	}
 	
-	internal func updateContentGuide (_ newContentGuide: Range <CGFloat>) {
+	func updateContentGuide (_ newContentGuide: Range <CGFloat>) {
 		let oldWidth = self.contentGuideWidth, oldLeading = self.contentGuideLeading;
 		self.contentGuide = newContentGuide;
 		if ((self.contentGuideWidth - oldWidth).magnitude > 1e-3) || ((self.contentGuideLeading - oldLeading).magnitude > 1e-3) {
@@ -358,8 +358,8 @@ internal extension CPCCalendarView.Layout.Storage {
 }
 
 fileprivate extension CPCCalendarView.Layout.Storage {
-	fileprivate typealias Attributes = CPCCalendarView.Layout.Attributes;
-	fileprivate typealias Row = CPCCalendarView.Layout.Row;
+	typealias Attributes = CPCCalendarView.Layout.Attributes;
+	typealias Row = CPCCalendarView.Layout.Row;
 	
 	private var firstAttributes: Attributes {
 		return self.rawAttributes [self.rawAttributes.startIndex];
@@ -381,7 +381,7 @@ fileprivate extension CPCCalendarView.Layout.Storage {
 		return self.row (at: self.lastRowIndex - 1);
 	}
 	
-	fileprivate func row (at index: Int) -> Row {
+	func row (at index: Int) -> Row {
 		return Row (self, rawAttributes: self.rawAttributes [(index * self.columnCount) ..< (index * self.columnCount + self.rowLength (at: index))]);
 	}
 	
@@ -481,15 +481,15 @@ fileprivate extension CPCCalendarView.Layout.Storage {
 }
 
 internal extension IndexPath {
-	internal var next: IndexPath {
+	var next: IndexPath {
 		return self.offset (by: 1);
 	}
 	
-	internal var prev: IndexPath {
+	var prev: IndexPath {
 		return self.offset (by: -1);
 	}
 	
-	internal func offset (by amount: Int) -> IndexPath {
+	func offset (by amount: Int) -> IndexPath {
 		return IndexPath (item: self.item + amount, section: self.section);
 	}
 }
@@ -525,13 +525,13 @@ extension UnsafeBufferRepresentable where Index: BinaryInteger, Element: Compara
 }
 
 fileprivate extension FloatingBaseArray {
-	fileprivate mutating func reserveAdditionalCapacity (_ k: Int) {
+	mutating func reserveAdditionalCapacity (_ k: Int) {
 		self.reserveCapacity (self.count + k);
 	}
 }
 
 fileprivate extension Comparable {
-	fileprivate static func comparator (lhs: Self, rhs: Self) -> ComparisonResult {
+	static func comparator (lhs: Self, rhs: Self) -> ComparisonResult {
 		if (lhs < rhs) {
 			return .orderedAscending;
 		} else if (lhs > rhs) {
@@ -541,16 +541,16 @@ fileprivate extension Comparable {
 		}
 	}
 	
-	fileprivate func comparator (other: Self) -> ComparisonResult {
+	func comparator (other: Self) -> ComparisonResult {
 		return Self.comparator (lhs: self, rhs: other);
 	}
 }
 
 fileprivate extension Collection where Element == CPCMonthView.AspectRatio {
-	fileprivate typealias Attributes = CPCCalendarView.Layout.Attributes;
+	typealias Attributes = CPCCalendarView.Layout.Attributes;
 	private typealias AttributesPosition = CPCCalendarView.Layout.Storage.AttributesPosition;
 	
-	fileprivate func makeAttributes (startingAt indexPath: IndexPath, row: Int, drawCellSeparators: Bool) -> [Attributes] {
+	func makeAttributes (startingAt indexPath: IndexPath, row: Int, drawCellSeparators: Bool) -> [Attributes] {
 		return self.enumerated ().map {
 			let result = Attributes (forCellWith: indexPath.offset (by: $0.offset));
 			result.position = AttributesPosition (row: row, item: $0.offset);

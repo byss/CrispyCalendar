@@ -55,12 +55,12 @@ internal struct ComputedCollection <Index, Element, Indices> where Indices: Coll
 }
 
 fileprivate extension ComputedCollection.Implementation {
-	fileprivate init (indices indicesBlock: @escaping () -> Indices, subscript subscriptBlock: @escaping (Index) -> Element) {
+    init (indices indicesBlock: @escaping () -> Indices, subscript subscriptBlock: @escaping (Index) -> Element) {
 		self.indicesImplementation = .block (indicesBlock);
 		self.subscriptImplementation = subscriptBlock;
 	}
 	
-	fileprivate init (indices: Indices, subscript subscriptBlock: @escaping (Index) -> Element) {
+    init (indices: Indices, subscript subscriptBlock: @escaping (Index) -> Element) {
 		self.indicesImplementation = .static (indices);
 		self.subscriptImplementation = subscriptBlock;
 	}
@@ -136,7 +136,7 @@ internal struct ComputedIndices <Element> where Element: Comparable {
 }
 
 internal extension ComputedIndices {
-	internal init <S> (_ indices: S, end endIndex: S.Element) where S: Sequence, S.Element == Element {
+	init <S> (_ indices: S, end endIndex: S.Element) where S: Sequence, S.Element == Element {
 		self.init (Array (indices), end: endIndex);
 	}
 }
@@ -173,11 +173,11 @@ internal extension ComputedIndices where Element: Strideable {
 		fatalError ("[CrispyCalendar] Internal error: cannot instantiate \(self) with empty indices because their element \(Element.self) is not trivially initializable");
 	}
 	
-	internal init <S> (_ indices: S) where S: Sequence, S.Element == Element {
+	init <S> (_ indices: S) where S: Sequence, S.Element == Element {
 		self.init (Array (indices));
 	}
 	
-	internal init (_ indices: [Element]) {
+	init (_ indices: [Element]) {
 		self.init (indices, end: indices.last?.advanced (by: 1) ?? ComputedIndices.endIndexForEmptyCollection);
 	}
 }

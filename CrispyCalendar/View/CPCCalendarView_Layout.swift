@@ -31,7 +31,7 @@ internal protocol CPCCalendarViewLayoutDelegate: UICollectionViewDelegate {
 }
 
 internal extension CPCCalendarView {
-	internal final class Layout: UICollectionViewLayout {
+    final class Layout: UICollectionViewLayout {
 		internal typealias ColumnContentInsetReference = CPCCalendarView.ColumnContentInsetReference;
 		
 		internal override class var invalidationContextClass: AnyClass {
@@ -242,7 +242,7 @@ internal extension CPCCalendarView {
 }
 
 internal extension CPCCalendarView.Layout {
-	internal final class Attributes: UICollectionViewLayoutAttributes {
+	final class Attributes: UICollectionViewLayoutAttributes {
 		internal var drawsLeadingSeparator = false;
 		internal var drawsTrailingSeparator = false;
 		internal var position = Storage.AttributesPosition (row: 0, item: 0);
@@ -289,7 +289,7 @@ internal extension CPCCalendarView.Layout {
 		}
 	}
 	
-	internal func contentGuideDidChange () {
+	func contentGuideDidChange () {
 		guard let storage = self.storage, !storage.isStorageValid (forContentGuide: self.contentGuide, columnSpacing: self.columnSpacing) else {
 			return;
 		}
@@ -465,11 +465,11 @@ private extension CPCCalendarView.Layout {
 }
 
 fileprivate extension UICollectionView {
-	fileprivate var visibleContentBounds: CGRect {
+	var visibleContentBounds: CGRect {
 		return self.contentBounds (for: self.bounds);
 	}
 	
-	fileprivate var contentCenterOffset: CGPoint {
+	var contentCenterOffset: CGPoint {
 		get {
 			let value = self.contentOffset, bounds = self.visibleContentBounds, insets = self.effectiveContentInset;
 			return CGPoint (
@@ -486,7 +486,7 @@ fileprivate extension UICollectionView {
 		}
 	}
 	
-	fileprivate var effectiveContentInset: UIEdgeInsets {
+	var effectiveContentInset: UIEdgeInsets {
 		if #available (iOS 11.0, *) {
 			return self.adjustedContentInset;
 		} else {
@@ -494,32 +494,32 @@ fileprivate extension UICollectionView {
 		}
 	}
 	
-	fileprivate func contentBounds (for bounds: CGRect) -> CGRect {
+	func contentBounds (for bounds: CGRect) -> CGRect {
 		return bounds.inset (by: self.effectiveContentInset);
 	}
 }
 
 internal extension UIEdgeInsets {
-	internal var width: CGFloat {
+	var width: CGFloat {
 		return self.left + self.right;
 	}
 
-	internal var height: CGFloat {
+	var height: CGFloat {
 		return self.top + self.bottom;
 	}
 }
 
 fileprivate extension CGFloat {
-	fileprivate static let virtualOriginHeight = CGFloat.virtualContentHeight / 2.0;
+	static let virtualOriginHeight = CGFloat.virtualContentHeight / 2.0;
 #if arch(x86_64) || arch(arm64)
-	fileprivate static let virtualContentHeight = CGFloat (1 << 38);
+	static let virtualContentHeight = CGFloat (1 << 38);
 #else
-	fileprivate static let virtualContentHeight = CGFloat (1 << 19);
+	static let virtualContentHeight = CGFloat (1 << 19);
 #endif
 }
 
 fileprivate extension UIUserInterfaceIdiom {
-	fileprivate var defaultLayoutColumnsCount: Int {
+	var defaultLayoutColumnsCount: Int {
 		switch (self) {
 		case .unspecified, .phone, .carPlay:
 			return 1;
@@ -530,7 +530,7 @@ fileprivate extension UIUserInterfaceIdiom {
 }
 
 fileprivate extension BinaryInteger {
-	fileprivate func nextDividable (by divisor: Self) -> Self {
+	func nextDividable (by divisor: Self) -> Self {
 		let remainder = self % divisor;
 		return ((remainder > 0) ? self + divisor - remainder : self);
 	}
