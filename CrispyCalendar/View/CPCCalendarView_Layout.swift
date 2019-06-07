@@ -283,7 +283,7 @@ internal extension CPCCalendarView.Layout {
 				<Attributes \(UnsafePointer (to: self));
 				frame: \(self.frame);
 				indexPath: \(self.indexPath));
-				position: [\(self.position.row, self.position.item)];
+				position: [\(self.position.row), \(self.position.item)];
 				height = \(self.aspectRatio.multiplier) x width + \(self.aspectRatio.constant)>
 			""".replacingOccurrences (of: "\n\t", with: " ");
 		}
