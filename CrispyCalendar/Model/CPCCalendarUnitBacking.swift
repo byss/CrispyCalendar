@@ -221,11 +221,11 @@ fileprivate extension __CPCYearMonthStorageLayout {
 	
 	private static var layoutsCache = UnfairThreadsafeStorage ([Calendar.Identifier: Layout] ());
 	
-	fileprivate init (for calendar: CPCCalendarWrapper) {
+	init (for calendar: CPCCalendarWrapper) {
 		self.init (for: calendar.calendar);
 	}
 	
-	fileprivate init (for calendar: Calendar) {
+	init (for calendar: Calendar) {
 		self = Layout.layoutsCache.withMutableStoredValue {
 			if let cachedLayout = $0 [calendar.identifier] {
 				return cachedLayout;
