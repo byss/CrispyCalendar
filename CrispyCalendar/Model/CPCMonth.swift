@@ -24,12 +24,9 @@
 import Foundation
 
 /// Calendar unit that represents a month.
-public struct CPCMonth {	
-	@usableFromInline
+public struct CPCMonth {
 	internal let calendarWrapper: CalendarWrapper;
-	@usableFromInline
 	internal let backingValue: BackingStorage;
-	@usableFromInline
 	internal let indicesCache: ContiguousArray <Int>;
 }
 

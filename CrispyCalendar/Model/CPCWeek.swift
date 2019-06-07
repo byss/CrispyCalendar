@@ -33,11 +33,8 @@ public struct CPCWeek {
 		}
 	}
 
-	@usableFromInline
 	internal let backingValue: UnitBackingType;
-	@usableFromInline
 	internal let calendarWrapper: CalendarWrapper;
-	@usableFromInline
 	internal let indicesCache: ContiguousArray <Int>;
 
 	internal init (backedBy value: UnitBackingType, calendar: CalendarWrapper) {

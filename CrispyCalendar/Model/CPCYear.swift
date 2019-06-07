@@ -25,9 +25,7 @@ import Foundation
 
 /// Calendar unit that represents a year.
 public struct CPCYear {
-	@usableFromInline
 	internal let calendarWrapper: CalendarWrapper;
-	@usableFromInline
 	internal let backingValue: BackingStorage;
 	@usableFromInline
 	internal let indicesCache: ContiguousArray <Int>;
